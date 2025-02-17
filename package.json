@@ -1,0 +1,17 @@
+{
+  "name": "load_data",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "load": "ts-node index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "mariadb": "^3.4.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
+}
