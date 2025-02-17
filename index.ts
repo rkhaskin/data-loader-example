@@ -21,7 +21,7 @@ async function asyncFunction() {
   const insMembers: string =
     "INSERT INTO members (user_id, gender, dob, description, city, country) value (?, ?, ?, ?, ?, ?)";
 
-  const insPhotos: string = "insert into photos(member_id, link) values(?, ?)";
+  const updateUserImage: string = "update users set image = ? where id = ?";
   let conn;
   try {
     conn = await pool.getConnection();
@@ -40,9 +40,11 @@ async function asyncFunction() {
       console.log(res);
 
       if (mem.image) {
-        const res2 = await conn.query(insPhotos, [res.insertId, mem.image]);
+        const res2 = await conn.query(updateUserImage, [mem.image, mem.userId]);
       }
     }
+  } catch (error) {
+    conn?.rollback();
   } finally {
     if (conn) conn.release(); //release to pool
   }
