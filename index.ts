@@ -17,6 +17,34 @@ async function init() {
   });
 }
 
+async function deleteR() {
+  const deleteR = "delete from likes";
+  let conn;
+  try {
+    conn = await pool.getConnection();
+    return conn.query(deleteR, []);
+  } catch (error) {
+    console.log("eeeeeeeeeeeee");
+    await conn?.rollback();
+  } finally {
+    if (conn) await conn.release(); //release to pool
+  }
+}
+
+async function insert() {
+  const insert =
+    "insert into likes (target_member_id, source_member_id) values (?, ?)";
+  let conn;
+  try {
+    conn = await pool.getConnection();
+    return conn.query(insert, [33, 33]);
+  } catch (error) {
+    console.log("eeeeeeeeeeeee");
+    await conn?.rollback();
+  } finally {
+    if (conn) await conn.release(); //release to pool
+  }
+}
 async function asyncFunction() {
   const insMembers: string =
     "INSERT INTO members (user_id, gender, dob, description, city, country) value (?, ?, ?, ?, ?, ?)";
@@ -53,7 +81,9 @@ async function asyncFunction() {
 async function main() {
   try {
     await init();
-    const res = await asyncFunction();
+    //const res = await asyncFunction();
+    const res = await deleteR();
+    console.log(res);
   } catch (error) {
     console.log("error", error);
   } finally {
